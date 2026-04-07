@@ -98,6 +98,12 @@ body{font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;backg
 .pill-label{padding:6px 13px;border-radius:3px;border:1.5px solid var(--border);font-size:0.72rem;font-weight:700;cursor:pointer;color:var(--muted);transition:all 0.15s;white-space:nowrap;letter-spacing:0.3px}
 .pill-opt:checked+.pill-label{background:var(--black);color:#fff;border-color:var(--black)}
 
+/* DATE SHORTCUT PILLS */
+.date-shortcuts{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.date-sc{padding:5px 12px;border-radius:3px;border:1.5px solid var(--border);font-size:0.68rem;font-weight:700;cursor:pointer;color:var(--muted);background:#fff;transition:all 0.15s;letter-spacing:0.3px;white-space:nowrap}
+.date-sc:active{background:#f0f0f0}
+.date-sc.active-sc{background:var(--black);color:#fff;border-color:var(--black)}
+
 /* BUTTONS */
 .btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px;border-radius:var(--rs);border:none;font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.18s;letter-spacing:0.5px;text-transform:uppercase}
 .btn-primary{background:var(--black);color:#fff}
@@ -105,6 +111,9 @@ body{font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;backg
 .btn-outline{background:transparent;color:var(--black);border:1.5px solid var(--border)}
 .btn-danger{background:#f5f5f5;color:#888;border:1.5px solid var(--border)}
 .btn-indicate{background:#f7f7f5;color:var(--black);border:1.5px solid var(--black);margin-bottom:10px}
+
+/* ATRASO REGISTER BTN */
+.atraso-reg-btn{font-size:0.65rem;font-weight:700;color:#fff;background:var(--black);border:none;border-radius:4px;padding:5px 10px;cursor:pointer;font-family:inherit;letter-spacing:0.4px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
 
 /* DETAIL */
 .detail-back{display:flex;align-items:center;gap:6px;color:var(--black);font-size:0.78rem;font-weight:700;cursor:pointer;margin-bottom:16px;background:none;border:none;font-family:inherit;padding:0;letter-spacing:0.5px;text-transform:uppercase}
@@ -223,6 +232,24 @@ body{font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;backg
 .step-sem-btn{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 14px;font-size:0.75rem;font-weight:700;color:var(--muted);cursor:pointer;font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:0.3px;margin-bottom:6px;text-align:center;transition:all 0.15s}
 .step-sem-btn.selected{background:var(--black);color:#fff;border-color:var(--black)}
 .interc-tag{background:#f0f0f0;color:#333;border:1px solid #ddd;border-radius:3px;padding:3px 8px;font-size:0.65rem;font-weight:700}
+
+/* MAPA CIRÚRGICO */
+.mapa-item{background:var(--card);border-radius:var(--r);border:1.5px solid var(--border);padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;transition:border-color 0.15s,background 0.15s;cursor:pointer}
+.mapa-item.selected{border-color:var(--black);background:#f9f9f9}
+.mapa-item.already-exists{opacity:0.5;cursor:default}
+.mapa-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all 0.18s}
+.mapa-check.checked{background:var(--black);border-color:var(--black)}
+.mapa-check svg{display:none}
+.mapa-check.checked svg{display:block}
+.mapa-body{flex:1;min-width:0}
+.mapa-nome{font-weight:700;font-size:0.88rem;color:var(--black);margin-bottom:3px}
+.mapa-info{font-size:0.68rem;color:var(--muted);line-height:1.5}
+.mapa-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.mapa-dif-badge{font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:2px;letter-spacing:0.4px;text-transform:uppercase}
+.mapa-dif-T2{background:#f0f0f0;color:#333;border:1px solid #ccc}
+.mapa-dif-T2XP{background:#1a1a1a;color:#fff}
+.mapa-dif-T3{background:#0a0a0a;color:#fff}
+.mapa-exists-tag{font-size:0.6rem;font-weight:700;padding:2px 8px;border-radius:2px;background:#f0f0f0;color:#888;border:1px solid #ddd}
 
 .empty{text-align:center;padding:44px 20px;color:var(--muted)}
 .empty-icon{font-size:2.2rem;margin-bottom:10px}
@@ -450,6 +477,45 @@ body{font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;backg
   <div id="fila-list"></div>
 </div>
 
+<!-- MAPA CIRÚRGICO -->
+<div class="page" id="page-mapa">
+  <div style="margin-top:6px;margin-bottom:18px">
+    <div class="sec-title">Mapa Cirúrgico</div>
+    <div class="sec-sub">Cole o texto do mapa e importe suas cirurgias</div>
+  </div>
+  <div id="mapa-upload-area">
+    <div class="field">
+      <label>Texto do mapa cirúrgico</label>
+      <textarea id="mapa-textarea" style="min-height:160px;font-size:0.75rem;font-family:monospace;resize:vertical" placeholder="Abra o PDF do mapa → Ctrl+A → Ctrl+C → cole aqui"></textarea>
+    </div>
+    <div style="font-size:0.68rem;color:var(--muted);margin-bottom:14px;line-height:1.5">
+      Como fazer: abra o PDF → selecione tudo (Ctrl+A ou ⌘A) → copie (Ctrl+C ou ⌘C) → cole no campo acima.
+    </div>
+    <button class="btn btn-primary" onclick="processarMapaTexto()" style="margin-bottom:6px">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Ler mapa
+    </button>
+    <div id="mapa-error" style="display:none;font-size:0.72rem;color:#c0392b;margin-top:8px;padding:10px 12px;background:#fff5f5;border-radius:var(--rs);border:1px solid #fcc"></div>
+  </div>
+  <div id="mapa-checklist-area" style="display:none">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div>
+        <div style="font-size:0.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px">Data do mapa</div>
+        <div id="mapa-data-label" style="font-weight:700;font-size:0.95rem;color:var(--black);margin-top:2px">—</div>
+      </div>
+      <button onclick="resetarMapa()" style="font-size:0.65rem;font-weight:700;color:var(--muted);background:none;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:0.4px">← Novo mapa</button>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:12px">Marque as cirurgias que você realizou:</div>
+    <div id="mapa-checklist"></div>
+    <div id="mapa-import-bar" style="display:none;margin-top:16px">
+      <button class="btn btn-primary" id="mapa-import-btn" onclick="importarDoMapa()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Importar selecionadas
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav class="nav">
   <button class="nav-btn active" id="nav-home" onclick="goPage('home')">
@@ -473,6 +539,10 @@ body{font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;backg
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     Análise
   </button>
+  <button class="nav-btn" id="nav-mapa" onclick="goPage('mapa')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    Mapa
+  </button>
 </nav>
 
 <!-- MODAL PÓS-OP -->
@@ -480,6 +550,14 @@ body{font-family:-apple-system,'Helvetica Neue',Helvetica,Arial,sans-serif;backg
   <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-title" id="posop-modal-title">Registrar Pós-op</div>
+
+    <!-- ★ NOVO: campo de data com atalhos -->
+    <div class="field">
+      <label>Data da consulta</label>
+      <div class="date-shortcuts" id="po-date-shortcuts"></div>
+      <input type="date" id="po-data">
+    </div>
+
     <div class="field"><label>AV sem correção</label>
       <select id="po-av"><option value="">—</option><option>20/20</option><option>20/25</option><option>20/30</option><option>20/40</option><option>20/50</option><option>20/60</option><option>20/80</option><option>20/100</option><option>20/200</option><option>CD 1m</option><option>CD 50cm</option><option>MM</option><option>PL+</option><option>SPL</option></select>
     </div>
@@ -574,7 +652,6 @@ function exportarDados(){
     document.body.appendChild(a);a.click();
     setTimeout(()=>{URL.revokeObjectURL(url);document.body.removeChild(a);},1000);
   }catch(e){
-    // Fallback: abre numa nova janela para copiar manualmente
     const json=JSON.stringify({cirurgias:db,fila:filaDB},null,2);
     const w=window.open('','_blank');
     if(w){
@@ -593,7 +670,6 @@ function importarDados(){
     reader.onload=function(ev){
       try{
         const dados=JSON.parse(ev.target.result);
-        // suporte ao formato antigo (array puro) e novo (objeto com cirurgias+fila)
         if(Array.isArray(dados)&&dados.length>0){db=dados;filaDB=[];}
         else if(dados.cirurgias){db=dados.cirurgias;filaDB=dados.fila||[];}
         else{alert('Arquivo inválido ou vazio.');return;}
@@ -644,7 +720,6 @@ const SURGICAL_STEPS=[
     {nome:'Captura de LIO',detalhe:'LIO capturada anterior ou posteriormente à capsulorrexe'},
     {nome:'Háptico amputado',detalhe:'Durante o implante ou manipulação da LIO'},
   ]},
-
   {id:'s7',label:'7. Fechamento da Incisão',complicacoes:[
     {nome:'Incisão não autosselante',detalhe:'Requer sutura ou adesivo; pode induzir astigmatismo'},
   ]},
@@ -657,7 +732,6 @@ const SURGICAL_STEPS=[
   ]},
 ];
 
-// Estado das seleções de intercorrências
 let intercSelections={};
 let intercSemFlag=false;
 let intercOpenStep=null;
@@ -695,7 +769,6 @@ function initIntercSteps(){
   });
   html+=`<button type="button" class="step-sem-btn" id="step-sem-btn" onclick="toggleSemInterc()">✓ Sem intercorrências</button>`;
   container.innerHTML=html;
-  // marca "sem intercorrências" como padrão visualmente
   const semBtn=document.getElementById('step-sem-btn');
   if(semBtn)semBtn.classList.add('selected');
   updateIntercPreview();
@@ -706,7 +779,6 @@ function toggleStep(stepId){
   const arrow=document.getElementById('steparrow-'+stepId);
   if(!list||!arrow)return;
   const isOpen=list.classList.contains('open');
-  // close all
   SURGICAL_STEPS.forEach(s=>{
     const l=document.getElementById('steplist-'+s.id);
     const a=document.getElementById('steparrow-'+s.id);
@@ -725,7 +797,6 @@ function toggleCompl(stepId,idx){
     delete intercSelections[key];
     chk.classList.remove('checked');
     if(item)item.classList.remove('selected');
-    // se não sobrou nenhuma, volta para "sem intercorrências"
     if(Object.keys(intercSelections).length===0){
       intercSemFlag=true;
       const sem=document.getElementById('step-sem-btn');
@@ -748,7 +819,6 @@ function toggleSemInterc(){
   const sem=document.getElementById('step-sem-btn');
   if(sem)sem.classList.toggle('selected',intercSemFlag);
   if(intercSemFlag){
-    // clear all selections
     intercSelections={};
     SURGICAL_STEPS.forEach(s=>{
       s.complicacoes.forEach((_,i)=>{
@@ -794,7 +864,6 @@ function getIntercValues(){
   return vals.length?vals:['Sem intercorrências'];
 }
 
-
 // ── PERSIST ─────────────────────────────────────────────────────
 function save(){
   localStorage.setItem('cataractadb_v3',JSON.stringify(db));
@@ -811,16 +880,40 @@ function loadDB(){
 
 // ── UTILS ────────────────────────────────────────────────────────
 function hoje(){return new Date().toISOString().split('T')[0]}
-function addDays(s,n){if(!s)return '';const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return d.toISOString().split('T')[0]}
-// D1: se a cirurgia for sexta (5), pula para segunda (+3); se for sábado pula +2
+
+function addDays(s,n){
+  if(!s)return '';
+  const d=new Date(s+'T12:00:00');
+  d.setDate(d.getDate()+n);
+  return d.toISOString().split('T')[0];
+}
+
+// Pula fins de semana: avança até próxima segunda se cair em sab/dom
+function skipWeekend(dateStr){
+  if(!dateStr)return dateStr;
+  const d=new Date(dateStr+'T12:00:00');
+  const dow=d.getDay(); // 0=dom, 6=sab
+  if(dow===6)d.setDate(d.getDate()+2);
+  else if(dow===0)d.setDate(d.getDate()+1);
+  return d.toISOString().split('T')[0];
+}
+
+// D1: dia seguinte pulando fim de semana
 function addD1(s){
   if(!s)return '';
   const d=new Date(s+'T12:00:00');
-  const dow=d.getDay(); // 0=dom,5=sex,6=sab
-  const skip=dow===5?3:dow===6?2:1;
+  const dow=d.getDay();
+  const skip=dow===5?3:dow===6?2:1; // sex→+3, sab→+2, outros→+1
   d.setDate(d.getDate()+skip);
   return d.toISOString().split('T')[0];
 }
+
+// Adiciona N dias e pula fim de semana no destino
+function addDaysSkipWeekend(s,n){
+  if(!s)return '';
+  return skipWeekend(addDays(s,n));
+}
+
 function diffDays(a,b){if(!a||!b)return 9999;return Math.round((new Date(a+'T12:00:00')-new Date(b+'T12:00:00'))/86400000)}
 function fmtDate(s){if(!s)return '—';const[y,m,d]=s.split('-');return `${d}/${m}/${y}`}
 function hasCompl(p){return p.intercorrencias&&p.intercorrencias.some(x=>x&&x!=='Sem intercorrências')}
@@ -839,6 +932,7 @@ function goPage(p){
   if(p==='fila')renderFila();
   if(p==='nova')initIntercSteps();
   if(p==='atrasos')renderAtrasos();
+  if(p==='mapa')initMapaPage();
 }
 function goBack(){goPage(prevPage||'pacientes')}
 function showDetail(id){
@@ -856,8 +950,8 @@ function renderHome(){
   db.forEach(p=>{
     if(!p.dataCirurgia)return;
     const expD1=addD1(p.dataCirurgia);
-    const expD7=addDays(p.dataCirurgia,7);
-    const expD30=addDays(p.dataCirurgia,30);
+    const expD7=addDaysSkipWeekend(p.dataCirurgia,7);
+    const expD30=addDaysSkipWeekend(p.dataCirurgia,30);
     const d1done=p.posOps&&p.posOps.D1;
     const tipoExps={D1:expD1,D7:expD7,D30:expD30};
     ['D1','D7','D30'].forEach(tipo=>{
@@ -880,7 +974,6 @@ function renderHome(){
   document.getElementById('stat-alerts').textContent=alerts.length;
   document.getElementById('stat-compl').textContent=overdue.length;
   document.getElementById('stat-today').textContent=todayCount;
-  // destaca o box de atrasos se houver
   const atrasosCard=document.getElementById('stat-atrasos-card');
   if(atrasosCard){atrasosCard.classList.toggle('accent-warn',overdue.length>0);}
   const al=document.getElementById('alerts-list');
@@ -897,14 +990,15 @@ function renderHome(){
   }).join('');
 }
 
+// ── ATRASOS ──────────────────────────────────────────────────────
 function renderAtrasos(){
   const h=hoje();
   let overdue=[];
   db.forEach(p=>{
     if(!p.dataCirurgia)return;
     const expD1=addD1(p.dataCirurgia);
-    const expD7=addDays(p.dataCirurgia,7);
-    const expD30=addDays(p.dataCirurgia,30);
+    const expD7=addDaysSkipWeekend(p.dataCirurgia,7);
+    const expD30=addDaysSkipWeekend(p.dataCirurgia,30);
     const d1done=p.posOps&&p.posOps.D1;
     const tipoExps={D1:expD1,D7:expD7,D30:expD30};
     ['D1','D7','D30'].forEach(tipo=>{
@@ -925,8 +1019,16 @@ function renderAtrasos(){
     list.innerHTML='<div class="empty"><div class="empty-icon">✓</div><div class="empty-txt">Nenhum retorno em atraso</div></div>';
     return;
   }
-  list.innerHTML=overdue.map(({p,tipo,exp,diff})=>
-    `<div class="alert-card alert-urgent" onclick="showDetail('${p.id}')"><div style="font-size:1.1rem;font-weight:900;color:#000;width:20px;text-align:center">!</div><div class="alert-info"><div class="alert-name">${p.nome}</div><div class="alert-detail">${tipo} · ${p.olho} · ${fmtDate(exp)}</div></div><div class="alert-day alert-day-urgent">Atrasado ${Math.abs(diff)}d</div></div>`
+  // ★ MODIFICADO: cada card tem botão "Registrar" inline
+  list.innerHTML=overdue.map(({p,tipo,exp,diff})=>`
+    <div class="alert-card alert-urgent">
+      <div style="font-size:1.1rem;font-weight:900;color:#000;width:20px;text-align:center;cursor:pointer" onclick="showDetail('${p.id}')">!</div>
+      <div class="alert-info" onclick="showDetail('${p.id}')" style="cursor:pointer">
+        <div class="alert-name">${p.nome}</div>
+        <div class="alert-detail">${tipo} · ${p.olho} · previsto ${fmtDate(exp)} · <span style="font-weight:700;color:#000">${Math.abs(diff)}d atraso</span></div>
+      </div>
+      <button class="atraso-reg-btn" onclick="openPosOp('${p.id}','${tipo}')">+ Reg.</button>
+    </div>`
   ).join('');
 }
 
@@ -964,26 +1066,22 @@ function renderDetail(id){
   const d1done=p.posOps&&p.posOps.D1;
   const tiposVisiveis=d1done?['D1','D7','D30']:['D1'];
   const tlHtml=tiposVisiveis.map(tipo=>{
-    const exp=p.dataCirurgia?(tipo==='D1'?addD1(p.dataCirurgia):tipo==='D7'?addDays(p.dataCirurgia,7):addDays(p.dataCirurgia,30)):'';
+    const exp=p.dataCirurgia?(tipo==='D1'?addD1(p.dataCirurgia):tipo==='D7'?addDaysSkipWeekend(p.dataCirurgia,7):addDaysSkipWeekend(p.dataCirurgia,30)):'';
     const done=p.posOps&&p.posOps[tipo];
     const diff=exp?diffDays(exp,h):9999;
     const dotCls=done?'tl-dot-done':!exp?'tl-dot-pending':diff<0?'tl-dot-overdue':diff===0?'tl-dot-active':'tl-dot-pending';
-    const sb=done?`<span class="badge badge-ok">Realizado</span>`:
+    const sb=done?`<span class="badge badge-ok">Realizado${done.data?' · '+fmtDate(done.data):''}</span>`:
       !exp?`<span class="badge badge-navy">Sem data</span>`:
       diff<0?`<span class="badge badge-warn">Atrasado ${Math.abs(diff)}d</span>`:
       diff===0?`<span class="badge badge-teal">Hoje</span>`:
       `<span class="badge badge-navy">Em ${diff}d</span>`;
     const obsH=done
       ?`<div class="tl-obs"><b>Córnea:</b> ${done.cornea||done.obs||'—'} · <b>CA:</b> ${done.ca||'—'}<br><b>AV:</b> ${done.av||'—'} · <b>PIO:</b> ${done.pio?done.pio+' mmHg':'—'}${done.obs&&done.obs!==done.cornea?`<br>${done.obs}`:''}</div>`
-      :`<div class="tl-obs-empty">${diff<0?'Retorno não realizado':'Não registrado'}</div>${diff>=0?`<button class="tl-add-btn" onclick="openPosOp('${id}','${tipo}')">+ Registrar ${tipo}</button>`:''}`;
+      :`<div class="tl-obs-empty">${diff<0?'Retorno não realizado — registre abaixo':'Não registrado'}</div><button class="tl-add-btn" onclick="openPosOp('${id}','${tipo}')">+ Registrar ${tipo}</button>`;
     return `<div class="tl-item"><div class="tl-dot ${dotCls}">${done?'✓':tipo==='D1'?'1':tipo==='D7'?'7':'30'}</div><div class="tl-content"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="tl-title">${tInfo[tipo].label}</span>${sb}</div><div class="tl-date">${exp?fmtDate(exp):'—'}</div>${obsH}</div></div>`;
   }).join('');
-  // aviso de D7/D30 bloqueados
   const bloqueadoHtml=!d1done&&p.dataCirurgia?`<div style="font-size:0.72rem;color:var(--muted);font-style:italic;padding:10px 0 4px">D7 e D30 serão liberados após o registro do D1.</div>`:'';
-
   const cc=hasCompl(p)?'var(--black)':'var(--muted)';
-
-  // Check for existing indication
   const existingInd=filaDB.find(f=>f.patId===id&&!f.done);
   const indBanner=existingInd?`
     <div class="indicated-banner">
@@ -993,15 +1091,12 @@ function renderDetail(id){
         <div class="indicated-banner-sub">${existingInd.grau||'—'} · ${existingInd.difficulty} · ${existingInd.obs||'Sem obs.'}</div>
       </div>
     </div>`:'';
-
-  // Contralateral button — hide if olho is AO or already has pending indication
   const olhoContra=contralateral(p.olho);
   const showBtn=p.olho!=='AO'&&!existingInd;
   const contraBtn=showBtn?`<button class="btn btn-indicate" onclick="openIndicaModal('${id}')">
     <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
     Indicar olho contralateral (${olhoContra})
   </button>`:'';
-
   document.getElementById('detail-content').innerHTML=`
     <div class="detail-hero">
       <div class="detail-patient-name">${p.nome}</div>
@@ -1023,7 +1118,19 @@ function renderDetail(id){
       <div class="info-item"><div class="info-label">Poder LIO</div><div class="info-value">${p.lioPoder?p.lioPoder+'D':'—'}</div></div>
     </div>
     ${p.obsPreOp?`<div class="card" style="margin-bottom:12px"><div class="form-section-title" style="margin-bottom:8px">Obs. Pré-op</div><div style="font-size:0.82rem">${p.obsPreOp}</div></div>`:''}
-    <div class="card" style="margin-bottom:14px">
+    ${(p.keratoD1||p.axialLength||p.avPreOp)?`<div class="card" style="margin-bottom:12px">
+      <div class="form-section-title" style="margin-bottom:10px">Biometria / Pré-op</div>
+      <div class="info-grid" style="margin-bottom:0">
+        ${p.keratoD1?`<div class="info-item"><div class="info-label">Ceratometria</div><div class="info-value" style="font-size:0.8rem">${p.keratoD1}×${p.keratoD2||'—'}</div></div>`:''}
+        ${p.axialLength?`<div class="info-item"><div class="info-label">AL</div><div class="info-value">${p.axialLength} mm</div></div>`:''}
+        ${p.ac?`<div class="info-item"><div class="info-label">Câmara ant.</div><div class="info-value">${p.ac} mm</div></div>`:''}
+        ${p.avPreOp?`<div class="info-item"><div class="info-label">AV pré-op</div><div class="info-value">${p.avPreOp}</div></div>`:''}
+      </div>
+    </div>`:''}
+    ${p.dificuldadeMapa?`<div style="font-size:0.68rem;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px">
+      <span style="font-weight:700;text-transform:uppercase;letter-spacing:0.4px">Dificuldade estimada:</span>
+      <span class="badge ${p.dificuldadeMapa==='T2'?'badge-ok':p.dificuldadeMapa==='T2XP'?'badge-teal':'badge-warn'}">${p.dificuldadeMapa}</span>
+    </div>`:''}    <div class="card" style="margin-bottom:14px">
       <div class="form-section-title" style="margin-bottom:8px">Intercorrências</div>
       <div style="font-size:0.82rem;color:${cc};font-weight:${hasCompl(p)?'700':'400'}">${interc}</div>
       ${p.obsIntra?`<div style="margin-top:8px;font-size:0.78rem;color:var(--muted);font-style:italic">${p.obsIntra}</div>`:''}
@@ -1077,7 +1184,6 @@ function renderFila(){
     const p=db.find(x=>x.id===ind.patId);
     const nome=p?p.nome:'Paciente';
     const initials=nome.split(' ').filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase();
-    const diffClass=`selected-${ind.difficulty.replace('xP','xP')}`;
     return `<div class="fila-item" id="fila-${ind.id}">
       <div class="fila-check-wrap">
         <div class="fila-check" id="fcheck-${ind.id}" onclick="checkFila('${ind.id}')">
@@ -1117,7 +1223,6 @@ function openIndicaModal(patId){
   indicaContext={patId};
   const contra=contralateral(p.olho);
   document.getElementById('indica-modal-title').textContent=`Indicar ${contra} — ${p.nome.split(' ')[0]}`;
-  // pré-seleciona o olho contralateral
   const odEl=document.getElementById('ind-od');
   const oeEl=document.getElementById('ind-oe');
   if(contra==='OD'){odEl.checked=true;}else{oeEl.checked=true;}
@@ -1149,22 +1254,92 @@ function salvarIndicacao(){
 // ── PÓS-OP ───────────────────────────────────────────────────────
 function openPosOp(patId,tipo){
   posOpContext={patId,tipo};
+  const p=db.find(x=>x.id===patId);
   document.getElementById('posop-modal-title').textContent=`Registrar pós-op · ${tipo}`;
   ['po-av','po-pio','po-ref','po-obs','po-conduta'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.querySelector('input[name="po-ca"][value="Normal"]').checked=true;
   document.querySelector('input[name="po-cor"][value="Liso"]').checked=true;
+
+  // ★ NOVO: monta os atalhos de data
+  const scContainer=document.getElementById('po-date-shortcuts');
+  const dateInput=document.getElementById('po-data');
+  const dataCirurgia=p?p.dataCirurgia:'';
+
+  // Calcula as datas esperadas para cada tipo
+  const datas={
+    D1: dataCirurgia?addD1(dataCirurgia):'',
+    D7: dataCirurgia?addDaysSkipWeekend(dataCirurgia,7):'',
+    D30: dataCirurgia?addDaysSkipWeekend(dataCirurgia,30):''
+  };
+
+  // Define a data padrão = data esperada do tipo atual, ou hoje se não houver
+  const dataPadrao=datas[tipo]||hoje();
+  dateInput.value=dataPadrao;
+
+  // Renderiza os atalhos: D1, D7, D30, Hoje
+  const atalhos=[
+    {label:`D1 — ${datas.D1?fmtDate(datas.D1):'s/data'}`, value:datas.D1, key:'D1'},
+    {label:`D7 — ${datas.D7?fmtDate(datas.D7):'s/data'}`, value:datas.D7, key:'D7'},
+    {label:`D30 — ${datas.D30?fmtDate(datas.D30):'s/data'}`, value:datas.D30, key:'D30'},
+    {label:'Hoje', value:hoje(), key:'hoje'},
+  ];
+
+  scContainer.innerHTML=atalhos.map(a=>{
+    const isActive=a.value===dataPadrao;
+    const disabled=!a.value?'style="opacity:0.4;cursor:default"':'';
+    return `<button type="button" class="date-sc${isActive?' active-sc':''}" ${disabled}
+      onclick="${a.value?`setPoDate('${a.value}',this)`:''}">${a.label}</button>`;
+  }).join('');
+
+  // Ao mudar a data manualmente, remove highlight dos atalhos
+  dateInput.oninput=function(){
+    scContainer.querySelectorAll('.date-sc').forEach(b=>b.classList.remove('active-sc'));
+    // reativa o atalho se coincidir com uma das datas
+    atalhos.forEach((a,i)=>{
+      if(a.value&&a.value===dateInput.value){
+        scContainer.children[i].classList.add('active-sc');
+      }
+    });
+  };
+
   document.getElementById('posop-modal').classList.add('open');
   document.body.classList.add('no-scroll');
 }
+
+function setPoDate(dateStr,btn){
+  document.getElementById('po-data').value=dateStr;
+  document.getElementById('po-date-shortcuts').querySelectorAll('.date-sc').forEach(b=>b.classList.remove('active-sc'));
+  btn.classList.add('active-sc');
+}
+
 function closeModal(){document.getElementById('posop-modal').classList.remove('open');document.body.classList.remove('no-scroll');}
+
 function salvarPosOp(){
   if(!posOpContext)return;
   const{patId,tipo}=posOpContext;
   const p=db.find(x=>x.id===patId);if(!p)return;
   const _poCa=document.querySelector('input[name="po-ca"]:checked');
   const _poCor=document.querySelector('input[name="po-cor"]:checked');
-  p.posOps[tipo]={data:hoje(),av:document.getElementById('po-av').value,pio:document.getElementById('po-pio').value,ref:document.getElementById('po-ref').value,ca:_poCa?_poCa.value:'',cornea:_poCor?_poCor.value:'',obs:document.getElementById('po-obs').value.trim(),conduta:document.getElementById('po-conduta').value.trim()};
-  save();closeModal();renderDetail(patId);
+  // ★ MODIFICADO: usa a data do campo, não hoje()
+  const dataRegistro=document.getElementById('po-data').value||hoje();
+  p.posOps[tipo]={
+    data:dataRegistro,
+    av:document.getElementById('po-av').value,
+    pio:document.getElementById('po-pio').value,
+    ref:document.getElementById('po-ref').value,
+    ca:_poCa?_poCa.value:'',
+    cornea:_poCor?_poCor.value:'',
+    obs:document.getElementById('po-obs').value.trim(),
+    conduta:document.getElementById('po-conduta').value.trim()
+  };
+  save();closeModal();
+  // Se veio da página de atrasos, volta pra lá; senão atualiza o detalhe
+  if(currentPage==='atrasos'||prevPage==='atrasos'){
+    renderAtrasos();
+    renderHome();
+  } else {
+    renderDetail(patId);
+  }
 }
 
 // ── NOVA CIRURGIA ────────────────────────────────────────────────
@@ -1217,7 +1392,6 @@ function deletePaciente(id){
 }
 
 // ── ANALYTICS ────────────────────────────────────────────────────
-// Mapeia texto livre de intercorrências antigas para taxonomia padronizada
 function mapearComplicacao(texto){
   if(!texto||texto==='Sem intercorrências')return null;
   const t=texto.toLowerCase();
@@ -1237,7 +1411,7 @@ function mapearComplicacao(texto){
   if(t.includes('lio')||t.includes('lente'))return'Intercorrência no implante de LIO';
   if(t.includes('incisão')||t.includes('incisao'))return'Intercorrência na incisão';
   if(t.includes('bloqueio capsular'))return'Bloqueio capsular posterior';
-  return texto; // mantém original se não mapeou
+  return texto;
 }
 
 function renderAnalytics(){
@@ -1261,7 +1435,6 @@ function renderAnalytics(){
         if(mapped)complTypes[mapped]=(complTypes[mapped]||0)+1;
       });
     }
-    // D1 resultado geral
     if(p.dataCirurgia){
       if(p.posOps&&p.posOps.D1){
         const obs=(p.posOps.D1.cornea||p.posOps.D1.obs||'').toLowerCase();
@@ -1269,7 +1442,6 @@ function renderAnalytics(){
         const temInterc=obs.includes('edema')||obs.includes('tyndall')||obs.includes('hipópio')||obs.includes('hipopio')||ca.includes('tyndall')||ca.includes('hipópio');
         if(temInterc)d1Interc++;else d1Bom++;
       } else {
-        // tem data de cirurgia mas sem D1 registrado — pode ter passado a data
         const expD1=addD1(p.dataCirurgia);
         const diff=diffDays(expD1,hoje());
         if(diff<0)d1NaoComp++;
@@ -1302,7 +1474,6 @@ function renderAnalytics(){
   const pendFila=filaDB.filter(f=>!f.done).length;
   const byDiff={'T2':0,'T2xP':0,'T3':0};
   filaDB.filter(f=>!f.done).forEach(f=>{if(byDiff[f.difficulty]!==undefined)byDiff[f.difficulty]++;});
-
   function pizzaChart(obj){
     const entries=Object.entries(obj).sort(function(a,b){return b[1]-a[1];});
     if(!entries.length)return '';
@@ -1328,7 +1499,6 @@ function renderAnalytics(){
     });
     return '<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><svg width="160" height="160" viewBox="0 0 160 160" style="flex-shrink:0">'+svgSlices+'</svg><div style="flex:1">'+legendHtml+'</div></div>';
   }
-
   document.getElementById('analytics-content').innerHTML=`
     <div class="analytics-section">
       <div class="analytics-title">Visão Geral</div>
@@ -1345,9 +1515,7 @@ function renderAnalytics(){
     </div>
     <div class="analytics-section">
       <div class="analytics-title">Complicações — ${complCount} caso${complCount!==1?'s':''} (${cr}%)</div>
-      ${complCount===0
-        ?'<div style="font-size:0.82rem;color:var(--muted)">Nenhuma complicação registrada</div>'
-        :pizzaChart(complTypes)}
+      ${complCount===0?'<div style="font-size:0.82rem;color:var(--muted)">Nenhuma complicação registrada</div>':pizzaChart(complTypes)}
     </div>
     <div class="analytics-section">
       <div class="analytics-title">D1 — Resultado Geral</div>
@@ -1375,6 +1543,246 @@ function renderAnalytics(){
     </div>`:''}`;
 }
 
+// ── MAPA CIRÚRGICO (PARSER OFFLINE) ─────────────────────────────
+let mapaData=null;
+
+function initMapaPage(){
+  if(mapaData){ renderMapaChecklist(); }
+  else {
+    document.getElementById('mapa-upload-area').style.display='block';
+    document.getElementById('mapa-checklist-area').style.display='none';
+  }
+}
+
+function resetarMapa(){
+  mapaData=null;
+  const ta=document.getElementById('mapa-textarea');
+  if(ta){ ta.value=''; ta.style.display=''; }
+  const err=document.getElementById('mapa-error');
+  if(err) err.style.display='none';
+  // Restore upload area elements
+  document.querySelectorAll('#mapa-upload-area .field, #mapa-upload-area .btn, #mapa-upload-area .mapa-hint').forEach(el=>el.style.display='');
+  document.getElementById('mapa-upload-area').style.display='block';
+  document.getElementById('mapa-checklist-area').style.display='none';
+}
+
+// ── Parser offline ───────────────────────────────────────────────
+function toNum(s){ return s!=null?parseFloat(String(s).replace(',','.')):null; }
+
+function extractBiometry(src){
+  const res={};
+  const alM=src.match(/\bAL\s+(\d{2}[.,]\d{2,3})/); if(alM) res.axialLength=toNum(alM[1]);
+  const acM=src.match(/\bAC\s+(\d[.,]\d{2,3})/); if(acM) res.ac=toNum(acM[1]);
+  const kM=src.match(/(\d{2}[.,]\d{2,3})\s*(?:[Aa]\s*\d{1,3}\s*)?[Xx]\s*(\d{2}[.,]\d{2,3})/);
+  if(kM){ res.keratoD1=toNum(kM[1]); res.keratoD2=toNum(kM[2]); }
+  if(!res.axialLength&&kM){
+    const after=src.slice(src.indexOf(kM[0])+kM[0].length).replace(/[Aa]\s*\d{1,3}/g,' ');
+    const nums=after.match(/\b(\d{2}[.,]\d{2,3})\b/g);
+    if(nums){ res.axialLength=toNum(nums[0]); if(nums[1]){const v=toNum(nums[1]);if(v<6)res.ac=v;} }
+  }
+  return res;
+}
+
+function parseMapa(rawText){
+  const lines=rawText.split('\n').map(l=>l.trim()).filter(Boolean);
+  const result={dataCirurgia:'',pacientes:[]};
+  const dm=rawText.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if(dm) result.dataCirurgia=`${dm[3]}-${dm[2]}-${dm[1]}`;
+
+  let curDif='T2',curLioHdr='';
+  const blocks=[];
+  for(let i=0;i<lines.length;i++){
+    const l=lines[i];
+    if(/^T2XP$/.test(l)) curDif='T2XP';
+    else if(/^T3$/.test(l)) curDif='T3';
+    else if(/^T2$/.test(l)) curDif='T2';
+    const lm=l.match(/^LIO:\s*(.+)/);
+    if(lm) curLioHdr=lm[1].replace(/^LIO\s*/i,'').trim();
+    if(l.startsWith('DATA CONFIRMADA')){
+      if(blocks.length) blocks[blocks.length-1].endIdx=i-1;
+      blocks.push({startIdx:i,endIdx:lines.length-1,dif:curDif,lioHdr:curLioHdr});
+    }
+  }
+
+  const stopName=/^(CAT|CATARATA|LIO|TOPICA|TÓPICA|TOTAL|NMRX|COM|EX)$|^N\d|^CA\d|^SCP/;
+
+  for(const blk of blocks){
+    const bl=lines.slice(blk.startIdx,blk.endIdx+1);
+    const p={dificuldade:blk.dif};
+
+    let dataAfter=bl[0].replace(/^DATA CONFIRMADA\s*/,'').trim();
+    let nameSrc=dataAfter||bl[1]||'';
+    let bioSrc=dataAfter||bl[1]||'';
+
+    const atIdx=bl.findIndex(l=>/^AT\s+TELEFONE/i.test(l));
+    const atDataLine=atIdx>=0&&atIdx+1<bl.length?bl[atIdx+1]:'';
+
+    let bio=extractBiometry(bioSrc);
+    if(!bio.axialLength&&atDataLine){const b2=extractBiometry(atDataLine);if(b2.axialLength)Object.assign(bio,b2);}
+    Object.assign(p,bio);
+
+    // LIO power
+    const lpM=bioSrc.match(/\bLIO\s+([+-]?\d{1,2}[.,]\d{2})/i);
+    if(lpM) p.lioPoder=toNum(lpM[1]);
+    else{const hm=blk.lioHdr.match(/([+-]?\d{1,2}[.,]\d{2})/);if(hm){const v=toNum(hm[1]);if(v>0||v<-2)p.lioPoder=v;}}
+
+    // AV
+    const avM=nameSrc.match(/\b(CD\s*\d+[Mm]?|MM|PL\+?|SPL|20\/\d+[A-Za-z]?)\b/);
+    if(avM) p.avPreOp=avM[1].replace(/\s+/,'');
+
+    // Name
+    const nw=[];
+    for(const w of nameSrc.split(/\s+/)){
+      if(/^\d/.test(w)||stopName.test(w)) break;
+      if(/^[A-ZÁÉÍÓÚÀÂÊÎÔÛÃÕÇde]+$/.test(w)&&w.length>1) nw.push(w);
+      else break;
+    }
+    if(nw.length) p.nome=nw.join(' ');
+
+    // catGrau
+    const catSrc=atDataLine||nameSrc;
+    const catM=catSrc.match(/\b(TOTAL\s+BRANCA|(?:(?:CAT(?:ARATA)?\s+)?(?:N\d+[-+]?\+?\s*|CA\d+\s*|SCP\d*[-+]*\s*)+))/i);
+    if(catM&&catM[1].trim().length>2) p.catGrau=catM[1].trim().replace(/\s+/g,' ');
+
+    // LIO model
+    if(atIdx>=0){
+      const atL=bl[atIdx].replace(/^AT\s+TELEFONE\s+Idade\s*/i,'').trim();
+      const skip=/^(CHEGAR|SEDACAO|SEDAÇAO)$/i;
+      const bw=atL.split(/\s+/).filter(w=>/^[A-ZÁÉÍÓÚa-zA-Z]{3,}$/.test(w)&&!skip.test(w));
+      if(bw.length) p.lioModelo=[bw[0],bw[1]&&bw[1].length<=4?bw[1]:null].filter(Boolean).join(' ');
+    }
+
+    // Prontuario / telefone / idade
+    if(atDataLine){
+      const pm=atDataLine.match(/^(\d{5,8})/); if(pm) p.prontuario=pm[1];
+      const tm=atDataLine.match(/\(?\d{2}\)?\s*\d{4,5}[-\s]?\d{3,4}/); if(tm) p.telefone=tm[0].replace(/\s/g,'');
+      // Idade: remove prontuário e telefone, pega primeiro número 20-110
+      let semId=atDataLine.replace(/^(\d{5,8})\s*/,'').replace(/\(?\d{2}\)?\s*\d{4,5}[-\s\/]?\d{3,5}/g,' ');
+      const nums=semId.match(/\b(\d{2,3})\b/g)||[];
+      for(const n of nums){const v=parseInt(n);if(v>=20&&v<=110){p.idade=v;break;}}
+    }
+
+    // OD/OE line
+    const olhoLine=bl.find(l=>/^(OD|OE)\s+Exames/i.test(l));
+    if(olhoLine){
+      p.olho=olhoLine.startsWith('OD')?'OD':'OE';
+      const afterOk=olhoLine.replace(/^.*?\bOK\s+/,'');
+      const avIdx=afterOk.toUpperCase().lastIndexOf('AVISO');
+      const content=avIdx>=0?afterOk.slice(0,avIdx).trim():afterOk.trim();
+      // Supervisor: primeira palavra(s) antes da primeira vírgula, se parecer nome
+      // e não for palavra clínica
+      const clinico=/^(SEDAÇAO|SEDACAO|GLAUCOMA|MIDRIASE|MIDRÍASE|ALTA|DERMATOCALASE|COLABORAT|TÓPICA|TOPICA|BRANCA|ORBITA|CERATOCONE|PIO|PAQUI)/i;
+      const fc=content.indexOf(',');
+      let supCand=fc>0?content.slice(0,fc).trim():content.split(/\s{2,}/)[0]||'';
+      // Remove palavras clínicas do candidato
+      supCand=supCand.split(/\s+/).filter(w=>w.length>1&&!clinico.test(w)&&!/\d/.test(w)).join(' ').trim();
+      // Aceita apenas se parece nome (≤3 palavras, ≤30 chars, sem números)
+      const supWords=supCand.split(/\s+/).filter(Boolean);
+      if(supCand.length<=30&&supWords.length<=3&&supWords.length>=1&&!/\d/.test(supCand)&&supCand){
+        p.orientacao=supCand;
+      }
+      if(p.orientacao){
+        const os=content.indexOf(p.orientacao)+p.orientacao.length;
+        p.obsPreOp=content.slice(os).replace(/^\s*,?\s*/,'').trim()||content;
+      } else { p.obsPreOp=content; }
+    }
+
+    // Keratometria fallback: tenta todas as linhas do bloco
+    if(!p.keratoD1){
+      for(const l of bl){
+        const km2=l.match(/(4[0-9])[,\.](\d{2})\s*(?:[AaXx°]?\s*\d*\s*)?[Xx]\s*(4[0-9]|5[0-5])[,\.](\d{2})/);
+        if(km2){p.keratoD1=parseFloat(km2[1]+'.'+km2[2]);p.keratoD2=parseFloat(km2[3]+'.'+km2[4]);break;}
+      }
+    }
+    // AL fallback
+    if(!p.axialLength){
+      for(const l of bl){
+        const alM=l.match(/\bAL\s+([\d,\.]+)/i)||l.match(/\b(2[0-9]\.\d{2})\b/);
+        if(alM){p.axialLength=toNum(alM[1]);break;}
+      }
+    }
+
+    const full=bl.join(' ');
+    if(/SEDAÇAO|SEDACAO/i.test(full)) p.anestesia='Sedação';
+    else if(/T[ÓO]PICA/i.test(full)) p.anestesia='Tópica';
+    else p.anestesia='Bloqueio';
+
+    if(p.nome) result.pacientes.push(p);
+  }
+  return result;
+}
+
+function processarMapaTexto(){
+  const ta=document.getElementById('mapa-textarea');
+  const err=document.getElementById('mapa-error');
+  const texto=(ta?ta.value:'').trim();
+  err.style.display='none';
+  if(!texto){ err.textContent='Cole o texto do mapa antes de continuar.'; err.style.display='block'; return; }
+  try{
+    const parsed=parseMapa(texto);
+    if(!parsed.pacientes||!parsed.pacientes.length){
+      err.textContent='Nenhum paciente encontrado. Verifique se o texto contém "DATA CONFIRMADA".';
+      err.style.display='block'; return;
+    }
+    mapaData=parsed;
+    // Hide input area elements
+    ta.style.display='none';
+    document.querySelectorAll('#mapa-upload-area .field, #mapa-upload-area .btn, #mapa-upload-area .mapa-hint').forEach(el=>el.style.display='none');
+    renderMapaChecklist();
+  }catch(e){ err.textContent='Erro ao processar: '+e.message; err.style.display='block'; }
+}
+
+function renderMapaChecklist(){
+  if(!mapaData)return;
+  document.getElementById('mapa-checklist-area').style.display='block';
+  document.getElementById('mapa-data-label').textContent=mapaData.dataCirurgia?fmtDate(mapaData.dataCirurgia):'Data não identificada';
+  const list=document.getElementById('mapa-checklist');
+  const pacs=mapaData.pacientes||[];
+  if(!pacs.length){ list.innerHTML='<div class="empty"><div class="empty-icon">○</div><div class="empty-txt">Nenhum paciente encontrado</div></div>'; return; }
+  list.innerHTML=pacs.map((p,i)=>{
+    const jaExiste=db.some(x=>x.nome&&x.nome.toUpperCase()===p.nome.toUpperCase()&&x.dataCirurgia===(p.dataCirurgia||mapaData.dataCirurgia));
+    const difClass=p.dificuldade==='T2XP'?'mapa-dif-T2XP':p.dificuldade==='T3'?'mapa-dif-T3':'mapa-dif-T2';
+    const info=[p.olho||'',p.catGrau||'',p.lioModelo?(p.lioModelo+(p.lioPoder?' +'+p.lioPoder+'D':'')):p.lioPoder?'+'+p.lioPoder+'D':'',p.anestesia==='Bloqueio'?'':p.anestesia,p.orientacao?'Sup: '+p.orientacao:''].filter(Boolean).join(' · ');
+    if(jaExiste) return `<div class="mapa-item already-exists"><div class="mapa-check"><svg width="11" height="11" fill="none" stroke="#aaa" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="mapa-body"><div class="mapa-nome">${p.nome}</div><div class="mapa-info">${info}</div><div class="mapa-tags"><span class="mapa-dif-badge ${difClass}">${p.dificuldade}</span><span class="mapa-exists-tag">já registrado</span></div></div></div>`;
+    return `<div class="mapa-item" id="mapa-item-${i}" onclick="toggleMapaItem(${i},this)"><div class="mapa-check" id="mapa-check-${i}"><svg width="11" height="11" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="mapa-body"><div class="mapa-nome">${p.nome}</div><div class="mapa-info">${info}</div>${p.obsPreOp?`<div style="font-size:0.68rem;color:var(--mid);margin-top:4px;font-style:italic">${p.obsPreOp.slice(0,80)}${p.obsPreOp.length>80?'…':''}</div>`:''}<div class="mapa-tags"><span class="mapa-dif-badge ${difClass}">${p.dificuldade}</span>${p.avPreOp?`<span class="mapa-exists-tag">AV: ${p.avPreOp}</span>`:''}${p.axialLength?`<span class="mapa-exists-tag">AL ${p.axialLength}</span>`:''}</div></div></div>`;
+  }).join('');
+  updateMapaImportBar();
+}
+
+function toggleMapaItem(i,el){
+  if(el.classList.contains('already-exists'))return;
+  el.classList.toggle('selected');
+  document.getElementById('mapa-check-'+i).classList.toggle('checked');
+  updateMapaImportBar();
+}
+
+function updateMapaImportBar(){
+  const n=document.querySelectorAll('.mapa-item.selected').length;
+  const bar=document.getElementById('mapa-import-bar');
+  const btn=document.getElementById('mapa-import-btn');
+  if(n>0){ bar.style.display='block'; btn.innerHTML=`<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Importar ${n} cirurgia${n>1?'s':''} selecionada${n>1?'s':''}`; }
+  else { bar.style.display='none'; }
+}
+
+function importarDoMapa(){
+  if(!mapaData)return;
+  const pacs=mapaData.pacientes||[];
+  const sel=document.querySelectorAll('.mapa-item.selected');
+  const ids=[]; let count=0;
+  sel.forEach(el=>{
+    const idx=parseInt(el.id.replace('mapa-item-',''));
+    const p=pacs[idx]; if(!p)return;
+    const novo={id:Date.now().toString()+'_'+idx,nome:p.nome||'',dataCirurgia:p.dataCirurgia||mapaData.dataCirurgia||'',idade:p.idade?String(p.idade):'',prontuario:p.prontuario||'',telefone:p.telefone||'',convenio:'SUS',olho:p.olho||'OD',tecnica:'Stop and Chop',aparelho:'Signature',orientacao:p.orientacao||'',anestesia:p.anestesia||'Bloqueio',catGrau:p.catGrau||'',obsPreOp:p.obsPreOp||'',lioModelo:p.lioModelo||'',lioPoder:p.lioPoder?String(p.lioPoder):'',lioTipo:'Monofocal',lioMat:'Hidrófilo',intercorrencias:['Sem intercorrências'],obsIntra:'',keratoD1:p.keratoD1||null,keratoD2:p.keratoD2||null,axialLength:p.axialLength||null,ac:p.ac||null,avPreOp:p.avPreOp||'',dificuldadeMapa:p.dificuldade||'T2',mental:{confianca:3,controle:3,estresse:3,obs:''},cirurgiao:'Dr. Felipe Casseb',posOps:{},fromMapa:true};
+    db.push(novo); ids.push(novo.id); count++;
+  });
+  if(!count)return;
+  save(); updateFilaBadge();
+  alert(`✓ ${count} cirurgia${count>1?'s':''} importada${count>1?'s':''}!\n\nPreencha: técnica, aparelho, intercorrências e avaliação mental.`);
+  renderMapaChecklist();
+  if(count===1) showDetail(ids[0]);
+  else goPage('pacientes');
+}
+
 // ── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
   const d=new Date();
@@ -1383,6 +1791,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   loadDB();renderHome();updateFilaBadge();initIntercSteps();
   document.getElementById('posop-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
   document.getElementById('indica-modal').addEventListener('click',function(e){if(e.target===this)closeIndicaModal();});
+  // Mapa page uses paste-text input (no dropzone needed)
 });
 </script>
 </body>
@@ -1406,9 +1815,7 @@ function enviarParaSheets(){
   var originalText=btn.textContent;
   btn.textContent='⏳';
   btn.disabled=true;
-
   var payload=JSON.stringify({medico:'Dr. Felipe Casseb',cirurgias:db});
-
   fetch(SHEETS_URL,{
     method:'POST',
     mode:'no-cors',
